@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+
+.gradient-animate {
+   background-size: 400%;
+
+   -webkit-animation: GradientAnimation 15s ease infinite;
+   -moz-animation: GradientAnimation 15s ease infinite;
+   animation: GradientAnimation 15s ease infinite;
+}
+
+@keyframes GradientAnimation {
+   0%,
+   100% {
+      background-position: 0% 50%;
+   }
+   50% {
+      background-position: 100% 50%;
+   }
+}
