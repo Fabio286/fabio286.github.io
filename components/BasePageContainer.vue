@@ -6,6 +6,7 @@
     min-h-screen
     bg-[url('/images/bg.jpg')]
     bg-cover
+    font-sans
   "
   >
     <div class="flex grow flex-col justify-between">

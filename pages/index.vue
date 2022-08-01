@@ -8,7 +8,7 @@
       <BasePageContent>
         <div class="space-y-10" data-aos="fade-in" data-aos-duration="1500" data-aos-delay="500">
           <div class="space-y-8">
-            <img class="m-auto block rounded-full border-8 border-teal-500 opacity-75 duration-200 ease-linear hover:opacity-100" src="/images/picture.png">
+            <img class="m-auto block rotate-[-8deg] rounded-full border-8 border-teal-500 opacity-75 duration-200 ease-linear hover:opacity-100" src="/images/picture.png">
             <h2 class="text-center text-5xl font-bold text-gray-50">
               <span class="opacity-30">About</span> Fabio Di Stasio<span class="text-teal-500">.</span>
             </h2>
@@ -16,9 +16,14 @@
               A wild software developer located in Milan, Italy
             </div>
             <div class="text-justify text-lg text-gray-50 md:text-center">
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-              <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+              <p>I am a full-stack developer with a passion for computer science and technology.</p>
+              <p>
+                I started my career several years ago building websites working as a freelancer and mostly on LAMP stacks.<br>
+                Over the years I have shifted my work towards developing both frontend and backend web applications on a <strong class="font-bold">JavaScript</strong> stack.
+                I also acquired skills related to <strong class="font-bold">SQL databases</strong>, in the management of <strong class="font-bold">Linux systems</strong> and on the <strong class="font-bold">AWS cloud</strong>.<br>
+                Currently I develop software mainly for the electronic payments sector for transaction monitoring and document digitization and archiving.
+              </p>
+              <p>The frameworks or technologies I work with most are <strong class="font-bold">Vue.js</strong>, <strong class="font-bold">Tailwind CSS</strong>, <strong class="font-bold">Node.js</strong> and <strong class="font-bold">Electron.js</strong>.</p>
             </div>
           </div>
           <div class="flex justify-center">
