@@ -1,13 +1,15 @@
+<!-- eslint-disable tailwindcss/no-contradicting-classname -->
 <!-- eslint-disable tailwindcss/no-custom-classname -->
 <template>
   <div
     class="
-    container
-    min-h-screen
-    bg-[url('/images/bg.jpg')]
-    bg-cover
-    font-sans
-  "
+      container
+      min-h-screen
+      bg-[url('/images/bg.jpg')]
+      bg-cover
+      bg-center
+      font-sans
+    "
   >
     <div class="flex grow flex-col justify-between">
       <slot />
