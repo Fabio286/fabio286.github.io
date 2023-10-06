@@ -1,6 +1,7 @@
 name: Deploy on gh-pages branch
 
-on: [push, pull_request]
+on: 
+  workflow_dispatch: {}
 
 jobs:
   cd:
@@ -9,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [16]
+        node: [18]
 
     steps:
       - name: Checkout
@@ -21,10 +22,13 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install dependencies
-        run: yarn
+        run: npm install
 
       - name: Generate
-        run: yarn generate
+        run: npm run generate
+
+      - name: Check directory
+        run: ls -l ./dist/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
