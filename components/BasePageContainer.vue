@@ -14,7 +14,6 @@
       flex-1
       justify-center
       overflow-hidden
-      rounded-b-3xl
       bg-gradient-to-tl
       from-indigo-900
       via-slate-900
@@ -23,7 +22,6 @@
       bg-center
       font-sans
       dark:text-gray-50
-      lg:rounded-b-none
     "
   >
     <div class="flex grow flex-col justify-between">
