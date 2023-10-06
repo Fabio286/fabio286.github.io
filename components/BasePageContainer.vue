@@ -3,12 +3,27 @@
 <template>
   <div
     class="
+      gradient-animate
+      freezeframe
+      from-10%
+      via-50%
+      to-90%
       container
+      flex
       min-h-screen
-      bg-[url('/images/bg.jpg')]
+      flex-1
+      justify-center
+      overflow-hidden
+      rounded-b-3xl
+      bg-gradient-to-tl
+      from-indigo-900
+      via-slate-900
+      to-stone-900
       bg-cover
       bg-center
       font-sans
+      dark:text-gray-50
+      lg:rounded-b-none
     "
   >
     <div class="flex grow flex-col justify-between">
@@ -19,7 +34,7 @@
 
 <style lang="scss" scoped>
 .container {
-    max-width: 100%;
-    // height: calc(100vh - #{$footer-height})
+  max-width: 100%;
+  // height: calc(100vh - #{$footer-height})
 }
 </style>
