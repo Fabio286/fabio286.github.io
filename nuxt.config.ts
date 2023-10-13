@@ -10,9 +10,6 @@ export default defineNuxtConfig({
       ]
     }
   },
-  generate: {
-    routes: ['/404.html']
-  },
   vite: {
     plugins: [
       eslintPlugin()
@@ -38,7 +35,8 @@ export default defineNuxtConfig({
         code: 'it',
         iso: 'it-IT'
       }
-    ]
+    ],
+    defaultLocale: 'en'
   },
   content: {
     sources: ['content']
