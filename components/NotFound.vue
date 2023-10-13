@@ -1,17 +1,17 @@
 <template>
   <div class="overflow-hidden">
     <Head>
-      <Title>Errorr 404</Title>
+      <Title>{{ t('message.error404') }}</Title>
     </Head>
     <BasePageContent>
       <div class="-mt-24 flex h-screen items-center justify-center">
         <div class="space-y-10 pt-44 text-center">
           <Error404Icon class="mx-auto dark:text-gray-50" size="128" />
           <h1 class="text-7xl font-bold dark:text-gray-50">
-            Page not found!
+            {{ t('message.pageNotFound') }}
           </h1>
           <NuxtLink
-            to="/"
+            :to="localePath('/')"
             class="
                 inline-flex
                 items-center
@@ -33,13 +33,16 @@
               "
           >
             <Home2Icon class="mr-2" />
-            Go to Home
+            {{ t('message.goToHome') }}
           </NuxtLink>
         </div>
       </div>
     </BasePageContent>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Home2Icon, Error404Icon } from 'vue-tabler-icons'
+const localePath = useLocalePath()
+const { t } = useI18n()
+
 </script>

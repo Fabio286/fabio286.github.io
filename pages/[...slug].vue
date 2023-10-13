@@ -1,23 +1,23 @@
 <template>
-  <div class="">
+  <main>
     <ContentDoc>
       <template #default="{doc}">
         <BasePageContent>
-          <div class="pb-20 dark:text-slate-50">
-            <div class="py-16 px-5">
+          <div class="pb-20 dark:text-stone-50">
+            <div class="px-5 py-16">
               <h1 class="text-5xl">
-                {{ doc.title }}
+                {{ doc.fullTitle || doc.title }}
               </h1>
-              <!-- <small>by {{ doc.author }} - {{ doc.date }}</small> -->
             </div>
             <ContentRenderer
               class="
                 prose
                 max-w-none
                 rounded-3xl
-                bg-slate-800
+                bg-white
                 p-8
                 dark:prose-invert
+                dark:bg-stone-800
               "
               :value="doc"
             />
@@ -28,23 +28,16 @@
       <template #not-found>
         <NotFound />
       </template>
+
+      <template #empty>
+        <h1 class="text-5xl">
+          {{ t('message.documentIsEmpty') }}
+        </h1>
+      </template>
     </ContentDoc>
-  </div>
+  </main>
 </template>
 <script setup lang="ts">
 import NotFound from '~/components/NotFound.vue'
-
-const route = useRoute()
-const router = useRouter()
-const routePath = computed(() => route.path)
-
-// Redirect old pages
-switch (routePath.value) {
-  case '/download.html':
-    router.push('/downloads')
-    break
-  case '/privacy.html':
-    router.push('/_privacy')
-    break
-}
+const { t } = useI18n()
 </script>

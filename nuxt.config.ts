@@ -20,12 +20,26 @@ export default defineNuxtConfig({
   },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/i18n'
   ],
   buildModules: [
     '@vueuse/nuxt',
     '@nuxtjs/tailwindcss'
   ],
+  i18n: {
+    vueI18n: './i18n.config.ts',
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US'
+      },
+      {
+        code: 'it',
+        iso: 'it-IT'
+      }
+    ]
+  },
   content: {
     sources: ['content']
   }

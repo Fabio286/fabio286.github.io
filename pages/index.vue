@@ -13,19 +13,9 @@
               <span class="opacity-30">About</span> Fabio Di Stasio<span class="text-orange-600">.</span>
             </h2>
             <div class="text-center text-2xl text-gray-50">
-              A wild software developer located in Milan, Italy
+              {{ bio?.subtitle }}
             </div>
-            <div class="text-justify text-lg text-gray-50 md:text-center">
-              <p>I am a full-stack developer with a passion for computer science and technology.</p>
-              <p>
-                I started my career several years ago building websites as a freelancer, mainly on LAMP stack.<br>
-                Over the years I have shifted my work to developing both frontend and backend web applications on a <strong class="font-bold">JavaScript</strong> stack.<br>
-                I have also acquired skills related to <strong class="font-bold">SQL databases</strong>, <strong class="font-bold">Linux systems</strong> management, and the <strong class="font-bold">AWS cloud</strong>.<br>
-                I currently develop software mainly for the electronic payments industry for transaction tracking and document digitization and archiving.
-              </p>
-              <p>The frameworks or technologies I work with most are <strong class="font-bold">Vue.js</strong>, <strong class="font-bold">Tailwind CSS</strong>, <strong class="font-bold">Node.js</strong> and <strong class="font-bold">Electron.js</strong>.</p>
-              <p>I'm the author of <a class="font-bold text-orange-600 transition-colors hover:text-white" rel="nofollow" href="https://github.com/antares-sql/antares" target="_blank">Antares SQL</a>, <a class="font-bold text-orange-600 transition-colors hover:text-white" rel="nofollow" href="https://github.com/Fabio286/mizar" target="_blank">Mizar TCP Tester</a> and other open-source stuffs.</p>
-            </div>
+            <ContentRenderer v-if="bio" class="text-justify text-lg text-gray-50 md:text-center" :value="bio" />
           </div>
           <div class="flex justify-center">
             <a title="GitHub Profile" rel="nofollow me" target="_blank" class="mx-2 rounded-full p-1" href="https://github.com/Fabio286">
@@ -43,4 +33,21 @@
     </main>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ParsedContent } from '@nuxt/content/dist/runtime/types'
+
+const bio: Ref<ParsedContent | null> = ref(null)
+const { localeProperties, localeCodes } = useI18n();
+
+(async () => {
+  const { data } = await useAsyncData('home', () => {
+    return queryContent()
+      .where({
+        _path: `/${(localeProperties.value.iso || localeCodes.value[0]).toLowerCase()}/_home`
+      })
+      .findOne()
+  })
+
+  bio.value = data.value
+})()
+</script>
