@@ -40,6 +40,8 @@ const bio: Ref<ParsedContent | null> = ref(null)
 const { localeProperties, localeCodes } = useI18n();
 
 (async () => {
+  await nextTick()
+
   const { data } = await useAsyncData('home', () => {
     return queryContent()
       .where({

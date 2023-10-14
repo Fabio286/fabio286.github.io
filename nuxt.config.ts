@@ -15,10 +15,14 @@ export default defineNuxtConfig({
       eslintPlugin()
     ]
   },
+  sitemap: {
+    hostname: 'https://fabiodistasio.it'
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/content',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '~/modules/sitemap'
   ],
   buildModules: [
     '@vueuse/nuxt',
