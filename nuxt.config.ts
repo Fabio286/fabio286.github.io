@@ -30,13 +30,16 @@ export default defineNuxtConfig({
   ],
   i18n: {
     vueI18n: './i18n.config.ts',
+    baseUrl: 'https://fabiodistasio.it',
     locales: [
       {
         code: 'en',
+        name: 'English (US)',
         iso: 'en-US'
       },
       {
         code: 'it',
+        name: 'Italiano',
         iso: 'it-IT'
       }
     ],

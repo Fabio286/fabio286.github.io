@@ -1,4 +1,5 @@
 ---
+title: Fabio Di Stasio - Full Stack Developer
 subtitle: A wild software developer located in Milan, Italy
 ---
 I am a full-stack developer with a passion for computer science and technology.

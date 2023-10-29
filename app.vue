@@ -1,8 +1,8 @@
 <template>
   <div class="dark min-h-screen dark:bg-gray-900">
-    <BasePageContainer>
+    <NuxtLayout>
       <NuxtPage />
-    </BasePageContainer>
+    </NuxtLayout>
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import '@/assets/scss/main.scss'
-import BasePageContainer from './components/BasePageContainer.vue'
 
 onMounted(() => {
   AOS.init()

@@ -1,4 +1,5 @@
 ---
+title: Fabio Di Stasio - Full Stack Developer
 subtitle: Wild software developer con sede a Milano
 ---
 Sono uno sviluppatore full-stack con la passione per l'informatica e la tecnologia.

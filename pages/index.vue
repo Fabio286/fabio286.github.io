@@ -2,7 +2,7 @@
 <template>
   <div>
     <Head>
-      <Title>Fabio Di Stasio - Full Stack Web Developer</Title>
+      <Title>{{ bio?.title }}</Title>
     </Head>
     <main class="my-12 flex min-h-screen items-center justify-center lg:my-0">
       <BasePageContent>

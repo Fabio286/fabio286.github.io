@@ -24,12 +24,20 @@
       dark:text-gray-50
     "
   >
-    <div class="flex grow flex-col justify-between">
-      <slot />
-    </div>
+    <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+      <div class="flex grow flex-col justify-between">
+        <slot />
+      </div>
+    </Html>
   </div>
 </template>
-
+<script setup lang="ts">
+const head = useLocaleHead({
+  addDirAttribute: true,
+  identifierAttribute: 'id',
+  addSeoAttributes: true
+})
+</script>
 <style lang="scss" scoped>
 .container {
   max-width: 100%;
