@@ -28,6 +28,6 @@ projects:
       - label: Sito web
         url: https://tankdiary.app
 ---
-Scrivo software da più di dieci anni e mi diverto ancora come il primo giorno. La passione è nata con l'elettronica e la programmazione dei microcontrollori; da allora mi piace costruire strumenti utili e curati nei dettagli. Lavoro su tutto lo stack, con un debole per **Vue.js**, **Node.js** ed **Electron**, insieme a database SQL e sistemi Linux.
+Scrivo software da più di dieci anni e mi diverto ancora come il primo giorno. La passione è nata con l'elettronica e la creazione di siti web; da allora mi piace costruire strumenti utili e curati nei dettagli. Lavoro su tutto lo stack, con un debole per **Vue.js**, **Node.js** ed **Electron**, insieme a database SQL e sistemi Linux.
 
 Credo molto nell'open source: dal 2020 porto avanti Antares SQL e altri progetti liberi, e in questo periodo sto esplorando cosa l'AI può aggiungere al modo in cui scriviamo codice. Lontano dalla tastiera, curo acquari piantumati.

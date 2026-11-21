@@ -28,6 +28,6 @@ projects:
       - label: Website
         url: https://tankdiary.app
 ---
-I've been writing software for more than ten years and I still enjoy it as much as on day one. The passion started with electronics and programming microcontrollers; since then I've loved building useful tools that are polished down to the details. I work across the whole stack, with a soft spot for **Vue.js**, **Node.js** and **Electron**, along with SQL databases and Linux systems.
+I've been writing software for more than ten years and I still enjoy it as much as on day one. The passion started with electronics and building websites; since then I've loved building useful tools that are polished down to the details. I work across the whole stack, with a soft spot for **Vue.js**, **Node.js** and **Electron**, along with SQL databases and Linux systems.
 
 I believe in open source: since 2020 I've been working on Antares SQL and other free projects, and lately I've been exploring what AI can add to the way we write code. Away from the keyboard, I tend planted aquariums.
