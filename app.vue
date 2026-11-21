@@ -9,7 +9,6 @@
 <script setup lang="ts">
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import '@/assets/scss/main.scss'
 
 onMounted(() => {
   AOS.init()

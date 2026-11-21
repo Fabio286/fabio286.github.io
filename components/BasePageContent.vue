@@ -1,8 +1,8 @@
 <template>
   <div class="grow">
     <div
-      class="mx-auto max-w-screen-xl px-6"
-      :style="{'grid-template-columns': `repeat(${gridSize}, minmax(0, 1fr))`, gap: `${gapSize*0.25}rem`}"
+      class="mx-auto max-w-7xl px-6"
+      :style="{ 'grid-template-columns': `repeat(${gridSize}, minmax(0, 1fr))`, 'gap': `${gapSize*0.25}rem` }"
     >
       <slot />
     </div>

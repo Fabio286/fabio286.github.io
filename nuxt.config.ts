@@ -1,8 +1,13 @@
-import eslintPlugin from 'vite-plugin-eslint'
+import tailwindcss from '@tailwindcss/vite'
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  target: 'static',
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/content',
+    '@nuxtjs/i18n',
+    '~/modules/sitemap'
+  ],
   app: {
     head: {
       link: [
@@ -10,42 +15,55 @@ export default defineNuxtConfig({
       ]
     }
   },
+  css: ['~/assets/css/main.css'],
+  content: {
+    experimental: {
+      // Node >= 22.5 built-in SQLite: no native module to compile
+      sqliteConnector: 'native'
+    }
+  },
+  // Keep the pre-Nuxt 4 layout (pages/, components/... in the project root)
+  srcDir: '.',
+  build: {
+    // Bundle it instead of tracing it into .output/server/node_modules (its CJS entry gets lost)
+    transpile: ['@tabler/icons-vue']
+  },
+  compatibilityDate: '2026-11-21',
   vite: {
     plugins: [
-      eslintPlugin()
+      tailwindcss()
     ]
   },
-  sitemap: {
-    hostname: 'https://fabiodistasio.it'
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
   },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxt/content',
-    '@nuxtjs/i18n',
-    '~/modules/sitemap'
-  ],
-  buildModules: [
-    '@vueuse/nuxt',
-    '@nuxtjs/tailwindcss'
-  ],
   i18n: {
-    vueI18n: './i18n.config.ts',
     baseUrl: 'https://fabiodistasio.it',
     locales: [
       {
         code: 'en',
         name: 'English (US)',
-        iso: 'en-US'
+        language: 'en-US'
       },
       {
         code: 'it',
         name: 'Italiano',
-        iso: 'it-IT'
+        language: 'it-IT'
       }
     ],
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
   },
-  content: {
-    sources: ['content']
+  sitemap: {
+    hostname: 'https://fabiodistasio.it'
   }
 })

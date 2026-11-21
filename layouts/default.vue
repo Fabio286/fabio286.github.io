@@ -7,10 +7,16 @@
     </Html>
   </div>
 </template>
+
 <script setup lang="ts">
 const head = useLocaleHead({
-  addDirAttribute: true,
-  identifierAttribute: 'id',
-  addSeoAttributes: true
+  dir: true,
+  lang: true,
+  seo: true
 })
+
+useHead(() => ({
+  link: head.value.link,
+  meta: head.value.meta
+}))
 </script>

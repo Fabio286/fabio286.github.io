@@ -1,13 +1,13 @@
 <template>
   <button
     class="flex items-center justify-center uppercase"
-    :class="[{'loading': isLoading}, buttonClasses]"
+    :class="[{ loading: isLoading }, buttonClasses]"
     :type="type"
     :disabled="isLoading"
   >
     <svg
       v-if="isLoading"
-      class="mx-3 h-6 w-6 animate-spin"
+      class="mx-3 size-6 animate-spin"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -28,15 +28,15 @@
     </svg>
     <span
       class="flex"
-      :class="{'hidden': isLoading}"
+      :class="{ hidden: isLoading }"
     ><slot /></span>
   </button>
 </template>
 
-<script setup  lang="ts">
-import { PropType } from 'vue'
+<script setup lang="ts">
+import type { PropType } from 'vue'
 
-type ButtonStyle = 'primary' | 'secondary' | 'plain' | 'link';
+type ButtonStyle = 'primary' | 'secondary' | 'plain' | 'link'
 
 const props = defineProps({
   type: {

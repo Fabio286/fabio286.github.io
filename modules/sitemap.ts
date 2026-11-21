@@ -1,65 +1,49 @@
-import { mkdirSync, writeFileSync } from 'fs'
-import { Readable } from 'stream'
-import { dirname } from 'path'
+import { writeFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { Readable } from 'node:stream'
 import { SitemapStream, streamToPromise } from 'sitemap'
-import { defineNuxtModule, createResolver } from '@nuxt/kit'
+import { defineNuxtModule } from '@nuxt/kit'
 
 export default defineNuxtModule({
   meta: {
     name: 'sitemap',
-    version: '0.0.1',
+    version: '0.0.2',
     configKey: 'sitemap',
-    compatibility: { nuxt: '^3.7.4' }
+    compatibility: { nuxt: '>=4.0.0' }
   },
   defaults: {
     hostname: 'https://fabiodistasio.it'
   },
-  setup (options, nuxt) {
-    function generateSitemap (routes:{path: string}[]) {
-      const sitemapRoutes = routes.map(route => route.path)
-
+  setup(options, nuxt) {
+    async function generateSitemap(paths: string[]) {
       // https://github.com/ekalinin/sitemap.js#generate-a-one-time-sitemap-from-a-list-of-urls
       const stream = new SitemapStream({ hostname: options.hostname })
-      return streamToPromise(Readable.from(sitemapRoutes).pipe(stream)).then(
-        (data: Buffer) => data.toString()
-      )
+      const data = await streamToPromise(Readable.from(paths).pipe(stream))
+      return data.toString()
     }
-
-    function createSitemapFile (sitemap: string, filepath: string) {
-      const dirPath = dirname(filepath)
-      mkdirSync(dirPath, { recursive: true })
-      writeFileSync('dist/sitemap.xml', sitemap)
-    }
-
-    const resolver = createResolver(import.meta.url)
-    const filePath = resolver.resolve(
-      nuxt.options.srcDir,
-      'node_modules/.cache/.sitemap/sitemap.xml'
-    )
-
-    nuxt.options.nitro.publicAssets = nuxt.options.nitro.publicAssets || []
-    nuxt.options.nitro.publicAssets.push({
-      baseURL: '/',
-      dir: dirname(filePath)
-    })
 
     nuxt.hook('nitro:build:before', (nitro) => {
-      const paths: {path: string}[] = []
-      const EXCLUDED_KEYWORDS = ['/api/_content', '/store/apps/9nhtb9sq51r1', '_payload.js', '200.html']
+      const paths: string[] = []
+      const EXCLUDED_KEYWORDS = ['/api/', '/__nuxt_content/', '/store/apps/9nhtb9sq51r1', '_payload.json', '200.html', '404.html']
 
       nitro.hooks.hook('prerender:route', (route) => {
+        if (route.error) { return }
+        if (route.contentType && !route.contentType.includes('text/html')) { return }
+
         const shouldBeAddedToSitemap = EXCLUDED_KEYWORDS.every(
           excludedKeyword => !route.route.includes(excludedKeyword)
         )
 
         if (shouldBeAddedToSitemap) {
-          paths.push({ path: route.route })
+          paths.push(route.route)
         }
       })
-      nitro.hooks.hook('close', async () => {
-        const sitemap = await generateSitemap(paths)
-        createSitemapFile(sitemap, filePath)
-        // eslint-disable-next-line no-console
+
+      nitro.hooks.hook('prerender:done', async () => {
+        if (!paths.length) { return }
+        const sitemap = await generateSitemap(paths.sort())
+        writeFileSync(join(nitro.options.output.publicDir, 'sitemap.xml'), sitemap)
+
         console.log('sitemap.xml created')
       })
     })

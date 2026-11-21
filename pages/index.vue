@@ -350,7 +350,7 @@
                 >
                   <path d="M12 17.75l-6.17 3.24 1.18-6.87-5-4.86 6.9-1 3.09-6.26 3.09 6.26 6.9 1-5 4.86 1.18 6.87z" />
                 </svg>
-                <span>{{ formatStars(stars[project.repo]) }}</span>
+                <span>{{ formatStars(stars[project.repo] ?? null) }}</span>
               </a>
             </div>
           </div>
@@ -401,17 +401,14 @@
 </template>
 
 <script setup lang="ts">
-import { ParsedContent } from '@nuxt/content/dist/runtime/types'
-
 const { localeProperties, localeCodes } = useI18n()
 
-const { data: bio } = await useAsyncData<ParsedContent | null>('home', () => {
-  return queryContent()
-    .where({
-      _path: `/${(localeProperties.value.iso || localeCodes.value[0]).toLowerCase()}/_home`
-    })
-    .findOne()
-})
+const homePath = computed(() => `/${(localeProperties.value.language || localeCodes.value[0] || 'en-US').toLowerCase()}/_home`)
+
+const { data: bio } = await useAsyncData(
+  () => `home-${homePath.value}`,
+  () => queryCollection('content').path(homePath.value).first()
+)
 
 const year = new Date().getFullYear()
 
@@ -439,8 +436,8 @@ const contacts = [
 type StarMap = Record<string, number | null>
 
 const repos = (bio.value?.projects || [])
-  .map((p: { repo?: string }) => p.repo)
-  .filter((r?: string): r is string => !!r)
+  .map(p => p.repo)
+  .filter((r): r is string => !!r)
 
 const fetchStars = async (): Promise<StarMap> => {
   const entries = await Promise.all(repos.map(async (repo: string) => {
@@ -511,7 +508,7 @@ const stemB: Leaf[] = [
 const lit = ref(false)
 
 const switchLabel = computed(() => {
-  const it = localeProperties.value.iso?.startsWith('it')
+  const it = localeProperties.value.language?.startsWith('it')
   if (lit.value) { return it ? 'Spegni la luce dell\'acquario' : 'Turn off the aquarium light' }
   return it ? 'Accendi la luce dell\'acquario' : 'Turn on the aquarium light'
 })
@@ -520,7 +517,7 @@ const mixColor = (a: string, b: string, t: number) => {
   const toRgb = (hex: string) => [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16))
   const pa = toRgb(a)
   const pb = toRgb(b)
-  return '#' + pa.map((v, i) => Math.round(v + (pb[i] - v) * t).toString(16).padStart(2, '0')).join('')
+  return '#' + pa.map((v, i) => Math.round(v + ((pb[i] ?? v) - v) * t).toString(16).padStart(2, '0')).join('')
 }
 
 // Red Rotala stems (right foreground SVG, viewBox 380x640): green at the base, red at the tip.
@@ -586,7 +583,7 @@ const rosette = (x: number, y: number, count: number, spread: number, sMin: numb
       y,
       r: -spread + 2 * spread * t,
       s: +(sMin + (sMax - sMin) * (1 - Math.abs(t - 0.5) * 2)).toFixed(2),
-      lit: colors[i % colors.length]
+      lit: colors[i % colors.length] as string
     }
   })
 
@@ -617,15 +614,15 @@ const carpet = [
   x: x0 + i * 8 + (i * 7) % 5,
   y: moundY(x0 + i * 8) + 4 - (i * 5) % 9 - Math.round(Math.sin(i / n * Math.PI) * 6),
   r: 4 + (i * 3) % 3,
-  lit: ['#6aa84a', '#7cba52', '#5c9a42'][i % 3]
+  lit: ['#6aa84a', '#7cba52', '#5c9a42'][i % 3] as string
 })))
 
 // Foreground details
 const rockAnubias = rosette(214, 634, 4, 48, 0.45, 0.6, ['#2f6638', '#3a7040'])
 
-const moss = [[232, 500], [204, 452], [172, 384], [300, 372], [156, 330]].flatMap(([cx, cy]) =>
-  [[0, 0, 8], [-8, 3, 6], [8, 2, 6], [-4, -6, 5], [5, -5, 5], [0, 6, 5]].map(([dx, dy, r], i) => ({
-    x: cx + dx, y: cy + dy, r, lit: ['#4f7d36', '#5c8a3c', '#46722f'][i % 3]
+const moss = ([[232, 500], [204, 452], [172, 384], [300, 372], [156, 330]] as const).flatMap(([cx, cy]) =>
+  ([[0, 0, 8], [-8, 3, 6], [8, 2, 6], [-4, -6, 5], [5, -5, 5], [0, 6, 5]] as const).map(([dx, dy, r], i) => ({
+    x: cx + dx, y: cy + dy, r, lit: ['#4f7d36', '#5c8a3c', '#46722f'][i % 3] as string
   })))
 
 const redStems = [
@@ -646,12 +643,12 @@ const lotusLeaves = [
 
 // Zebra danio school (layout grid scaled by SCHOOL_SCALE, group about 530x200)
 const SCHOOL_SCALE = 1.6
-const school = [
+const school = ([
   [0, 52, 24], [22, 30, 26], [30, 74, 23], [52, 10, 25], [58, 50, 28], [66, 92, 24],
   [88, 32, 26], [96, 70, 25], [112, 0, 23], [120, 104, 22], [128, 46, 29], [150, 20, 25],
   [156, 84, 26], [176, 58, 24], [190, 4, 22], [200, 34, 27], [214, 96, 23], [232, 66, 25],
   [248, 22, 24], [270, 48, 26], [286, 80, 22], [304, 30, 23]
-].map(([x, y, w], i) => ({
+] as [number, number, number][]).map(([x, y, w], i) => ({
   x: Math.round(x * SCHOOL_SCALE),
   y: Math.round(y * SCHOOL_SCALE),
   w: Math.round(w * SCHOOL_SCALE * 1.05),

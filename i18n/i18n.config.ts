@@ -1,14 +1,8 @@
-import { enUS } from './i18n/enUS'
-import { itIT } from './i18n/itIT'
+import { enUS } from './enUS'
+import { itIT } from './itIT'
 
 export default defineI18nConfig(() => ({
-  legacy: false,
-  detectBrowserLanguage: {
-    useCookie: true,
-    cookieKey: 'i18n_redirected',
-    redirectOn: 'root'
-  },
-  fallbackLocale: 'en-US',
+  fallbackLocale: 'en',
   messages: {
     en: enUS,
     it: itIT
