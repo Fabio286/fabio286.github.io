@@ -1,0 +1,1 @@
+var e={word:{},message:{pageNotFound:`Page not found!`,error404:`Error 404`,goToHome:`Go to Home`,documentIsEmpty:`Document is empty`}},t={word:{},message:{documentIsEmpty:`Documento vuoto`,pageNotFound:`Pagina non trovata!`,error404:`Errore 404`,goToHome:`Torna alla Home`}},n=()=>({fallbackLocale:`en`,messages:{en:e,it:t}});export{n as default};
