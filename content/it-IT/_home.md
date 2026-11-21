@@ -1,6 +1,6 @@
 ---
 title: Fabio Di Stasio - Full Stack Developer
-subtitle: Sviluppatore full-stack, Milano
+subtitle: A wild software developer
 projectsLabel: Progetti
 starsLabel: Stelle su GitHub
 contactLabel: Contatti
