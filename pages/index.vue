@@ -13,7 +13,7 @@
       :aria-pressed="lit"
       :aria-label="switchLabel"
       :title="switchLabel"
-      @click="lit = !lit"
+      @click="toggleLight"
     >
       <span class="light-switch__plate">
         <span class="light-switch__rocker" />
@@ -506,6 +506,36 @@ const stemB: Leaf[] = [
 
 // ---------- Easter egg: aquarium light ----------
 const lit = ref(false)
+
+// On every page load the light switches itself on once, while the visitor is reading the bio.
+// Once the visitor uses the switch, the automatic switch-on is cancelled for good (until reload).
+const AUTO_LIGHT_DELAY = 7000
+let autoLightTimer: ReturnType<typeof setTimeout> | undefined
+
+const autoLightOn = () => {
+  // Wait for the tab to be visible, otherwise nobody would see it happen
+  if (document.hidden) {
+    document.addEventListener('visibilitychange', autoLightOn, { once: true })
+    return
+  }
+  lit.value = true
+}
+
+const cancelAutoLight = () => {
+  clearTimeout(autoLightTimer)
+  document.removeEventListener('visibilitychange', autoLightOn)
+}
+
+const toggleLight = () => {
+  cancelAutoLight()
+  lit.value = !lit.value
+}
+
+onMounted(() => {
+  autoLightTimer = setTimeout(autoLightOn, AUTO_LIGHT_DELAY)
+})
+
+onBeforeUnmount(cancelAutoLight)
 
 const switchLabel = computed(() => {
   const it = localeProperties.value.language?.startsWith('it')
